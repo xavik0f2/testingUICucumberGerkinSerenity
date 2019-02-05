@@ -1,11 +1,12 @@
 ### Description
-
-Proyecto para iniciar al testing con Selenium para LaSalle.
-
+Project to test Selenium framework and the Page Object Pattern.
 
 ### Responsible
 Sergio Sacristan <extra@sacristan.com.es
 
+### Exercise
+Implement a test for the feature [search.feature](features/search/search.feature) following page object pattern.
+The result of the execution should be in a report with screenshots of every step.
 
 ### Prerequisites
 * **Git**:  [See the Git best practices](docs/git-best-practices.md).

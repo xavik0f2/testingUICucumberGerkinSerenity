@@ -2,8 +2,8 @@ Feature: Main search
 
   Narrative:
   In order find available flights
-  As a client
-  I want to be able to search
+  As a client of https://www.vueling.com/es
+  I want to be able to search flights
 
   Scenario: Initial search
     Given I'm main page
