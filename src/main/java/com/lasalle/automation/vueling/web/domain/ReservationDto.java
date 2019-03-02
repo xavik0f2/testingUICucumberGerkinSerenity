@@ -5,11 +5,8 @@ public class ReservationDto {
     private String origin;
     private String destination;
     private String outbound;
+    private String _return;
     private int passengers;
-
-    public ReservationDto(){
-
-    }
 
     public String getOrigin() {
         return origin;
@@ -33,6 +30,14 @@ public class ReservationDto {
 
     public void setOutbound(String outbound) {
         this.outbound = outbound;
+    }
+
+    public String getReturn() {
+        return _return;
+    }
+
+    public void setReturn(String _return) {
+        this._return = _return;
     }
 
     public int getPassengers() { return passengers;}

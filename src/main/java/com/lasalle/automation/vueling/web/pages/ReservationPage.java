@@ -2,8 +2,8 @@ package com.lasalle.automation.vueling.web.pages;
 
 import com.lasalle.automation.vueling.web.domain.ReservationDto;
 import net.serenitybdd.core.pages.PageObject;
-import org.openqa.selenium.JavascriptExecutor;
 import net.thucydides.core.annotations.DefaultUrl;
+
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -19,50 +19,61 @@ public class ReservationPage extends PageObject {
     private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     @FindBy(xpath = "//*[@id=\"tab-search\"]/div/form/div[1]/div[1]/div[1]/input")
-    private WebElement origin;
+    private WebElement txbOrigin;
 
     @FindBy(xpath = "//*[@id=\"tab-search\"]/div/form/div[1]/div[2]/div[1]/input")
-    private WebElement destination;
+    private WebElement txbDestination;
 
     @FindBy(id = "inputGoing")
-    private WebElement dates;
+    private WebElement datePicker;
 
     @FindBy (id= "idCookiePolicyCloseOption")
-    private WebElement cookies;
+    private WebElement btnCloseCookies;
 
     @FindBy (xpath = "//*[@id=\"passengers-input\"]")
-    private WebElement passengers;
+    private WebElement btnPassenger;
 
     @FindBy (xpath= "//*[@id=\"btnSubmitHomeSearcher\"]")
-    private WebElement toFind;
+    private WebElement btnFind;
+
+    @FindBy (xpath = "//*[@id=\"passengers-popup\"]")
+    private WebElement popupPassangers;
+
+    @FindBy (xpath = "//*[@id=\"tab-search\"]")
+    private WebElement tabDates;
+
+    @FindBy ( xpath = "//*[@id=\"ui-datepicker-div\"]/div[1]/table/tbody")
+    private WebElement tbodyCalendar;
 
     private WebDriver driver;
-    private JavascriptExecutor jsExecutor;
 
     public void initializeDriver(){
         driver = getDriver();
-        jsExecutor = (JavascriptExecutor) driver;
         driver.manage().window().maximize();
     }
-
-    public void registerReservation(ReservationDto reservation) {
-        LOGGER.debug("registerReservation starts, reservation: [{}]", reservation);
-    }
-
 
     public void OpenReservationPage() {
         this.open();
         PageFactory.initElements(getDriver(),this);
     }
 
-    public void selectFlight(ReservationDto reservation) {
-        this.cookies.click();
-        this.origin.click();
-        typeInto(this.origin, reservation.getOrigin() +Keys.ENTER);
-        typeInto(this.destination, reservation.getDestination() + Keys.ENTER);
-        jsExecutor.executeScript("$('#inputGoing').datepicker('setDate', 7);");
-        this.dates.sendKeys(Keys.ENTER);
-        this.passengers.sendKeys(Keys.ENTER);
+    public void setReservation(ReservationDto reservation) {
+        this.btnCloseCookies.click();
+        this.txbOrigin.click();
+        typeInto(this.txbOrigin, reservation.getOrigin() +Keys.ENTER);
+        typeInto(this.txbDestination, reservation.getDestination() + Keys.ENTER);
+
+        waitFor(tabDates);
+        evaluateJavascript("$('#inputGoing').datepicker('setDate', 7);");
+        waitFor(tbodyCalendar);
+        evaluateJavascript("$('#inputGoing').datepicker('setDate', 7);");
+
+        this.datePicker.sendKeys(Keys.ENTER);
+        waitFor(popupPassangers);
+        this.btnPassenger.sendKeys(Keys.TAB);
+    }
+    public void getFlights(){
+        this.btnFind.click();
     }
 
 }
