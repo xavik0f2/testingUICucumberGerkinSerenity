@@ -1,7 +1,7 @@
 package com.lasalle.automation.vueling.web.stepsdefs.reservations;
 
 import com.lasalle.automation.vueling.web.pages.ReservationPage;
-import com.lasalle.automation.vueling.web.services.ReservationService;
+
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
@@ -17,11 +17,7 @@ import java.util.List;
 
 public class InitialStepDefinition {
     public static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
-    //public static final String FILE = "file:";
-    //public static final String HOME = "/reservationList.html";
 
-    @Steps
-    private ReservationService reservationService;
     private ReservationPage reservationPage;
 
     private List<ReservationDto> reservations;
@@ -29,14 +25,14 @@ public class InitialStepDefinition {
     @Before
     public void beforeScenario() {
         LOGGER.debug("beforeScenario starts");
-        reservationService.addReservations(2);
+
         reservationPage.initializeDriver();
     }
 
     @After
     public void afterScenario() {
         LOGGER.debug("afterScenario() starts");
-        reservationService.clean();
+
         reservationPage.getDriver().close();
     }
 
